@@ -12,7 +12,10 @@ namespace BlueTree.Tests
         }
 
         [Test]
-        [TestCase("ABCDEABCDEABCDE")]
+        [TestCase("AAA")]
+        [TestCase("AAABBB")]
+        [TestCase("ABCDABCDABCDABCD")]
+        [TestCase("DCBACBABAA")]
         public void Test_ParseLineItems(string LineItems)
         {
             ///Arrange Test
