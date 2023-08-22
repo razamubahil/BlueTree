@@ -152,14 +152,7 @@ namespace BlueTree.Tests
 
 
             // Add Items
-            ILineItem product;
-            Items.ToCharArray().ToList().ForEach(
-                (x =>
-                {
-                    product = new LineItem(x.ToString());
-                    cart.CartItems.Add(product);
-                }));
-
+            cart.ParseAndAddLineItems(Items);
 
             ///Asset Test
             var ex = Assert.Throws<ArgumentException>(() => cart.CalculatePrice());
