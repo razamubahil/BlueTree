@@ -16,6 +16,6 @@ namespace BlueTree.SuperMarketEntities.Product
 
         public void SetDiscount(int Qty, decimal DiscountPrice);
 
-        public bool HasDiscount() => Discount != null;
+        public bool HasDiscount();
     }
 }
