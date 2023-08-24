@@ -11,20 +11,29 @@ namespace BlueTree.SuperMarketEntities.Price
     {
         public virtual decimal CalculatePrice(int Qty, ISku sku)
         {
+            if (Qty <= 0)
+                throw new ArgumentException("Quantity is invalid");
+            
             ValidateSku(sku);
 
             IPriceCalculator priceCalculator;
             decimal totalPrice = 0;
-
-            if (sku.HasDiscount())
+            try
             {
-                priceCalculator = new DiscountPriceCalculator();
-                totalPrice = priceCalculator.CalculatePrice(Qty, sku);
+                if (sku.HasDiscount())
+                {
+                    priceCalculator = new DiscountPriceCalculator();
+                    totalPrice = priceCalculator.CalculatePrice(Qty, sku);
+                }
+                else
+                {
+                    priceCalculator = new SimplePriceCalculator();
+                    totalPrice = priceCalculator.CalculatePrice(Qty, sku);
+                }
             }
-            else
+            catch (DivideByZeroException)
             {
-                priceCalculator = new SimplePriceCalculator();
-                totalPrice = priceCalculator.CalculatePrice(Qty, sku);
+                throw new ArgumentException("Please check the lineItems and SKU discount setup.");
             }
             return totalPrice;
         }
