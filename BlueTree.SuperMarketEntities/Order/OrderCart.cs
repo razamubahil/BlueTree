@@ -74,16 +74,8 @@ namespace BlueTree.SuperMarketEntities.Order
                     throw new ArgumentException($"Attempt to add invalid product SKU. Invalid SKU ({lineItem.ProductName}).");
                 }
 
-                if (skus.FirstOrDefault().HasDiscount())
-                {
-                    priceCalculator = new DiscountPriceCalculator();
-                    totalPrice += priceCalculator.CalculatePrice(lineItem.Qty, skus.FirstOrDefault());
-                }
-                else
-                {
-                    priceCalculator = new SimplePriceCalculator();
-                    totalPrice += priceCalculator.CalculatePrice(lineItem.Qty, skus.FirstOrDefault());
-                }
+                priceCalculator = new PriceCalculator();
+                totalPrice += priceCalculator.CalculatePrice(lineItem.Qty, skus.FirstOrDefault());
             }
 
             return totalPrice;

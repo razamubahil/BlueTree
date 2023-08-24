@@ -17,8 +17,6 @@ namespace BlueTree.SuperMarketEntities.Price
         /// <returns>Discounted Price</returns>
         public override decimal CalculatePrice(int Qty, ISku Sku)
         {
-            base.ValidateSku(Sku);
-
             decimal undiscountedPrice = 0;
             decimal discountedPrice = 0;
             if (Qty % Sku.Discount.Qty > 0)

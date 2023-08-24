@@ -9,7 +9,6 @@ namespace BlueTree.SuperMarketEntities.Price
 {
     interface IPriceCalculator
     {
-        void ValidateSku(ISku Sku);
         decimal CalculatePrice(int Qty, ISku sku);
     }
 }
