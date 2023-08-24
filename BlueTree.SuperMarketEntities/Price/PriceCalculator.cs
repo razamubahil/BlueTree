@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlueTree.SuperMarketEntities.Price
 {
-    public class PriceCalculator : IPriceCalculator
-    {
-        public virtual decimal CalculatePrice(int Qty, ISku sku)
+    public class PriceCalculator { 
+        public decimal CalculatePrice(int Qty, ISku sku)
         {
-            if (Qty <= 0)
-                throw new ArgumentException("Quantity is invalid");
-            
             ValidateSku(sku);
 
             IPriceCalculator priceCalculator;
@@ -33,7 +29,7 @@ namespace BlueTree.SuperMarketEntities.Price
             }
             catch (DivideByZeroException)
             {
-                throw new ArgumentException("Please check the lineItems and SKU discount setup.");
+                throw new ArgumentException("Please check the lineItems and SKU discount setup.", nameof(Sku));
             }
             return totalPrice;
         }
@@ -42,7 +38,7 @@ namespace BlueTree.SuperMarketEntities.Price
         {
             if (Sku == null)
             {
-                throw new ArgumentException($"Pricing does not exist for the Product.");
+                throw new ArgumentException($"Pricing does not exist for the Product.", nameof(Sku));
             }
         }
     }

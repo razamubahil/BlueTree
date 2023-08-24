@@ -30,6 +30,8 @@ namespace BlueTree.SuperMarketEntities.Order
         /// <returns>Return the list of line items added</returns>
         public List<ILineItem> ParseAndAddLineItems(string LineItemsAsString)
         {
+            LineItemsAsString = String.Concat(LineItemsAsString.Where(c => !Char.IsWhiteSpace(c)));
+
             List<ILineItem> listOfCleanLineItems = new List<ILineItem>();
             ILineItem lineItem;
 
@@ -49,7 +51,6 @@ namespace BlueTree.SuperMarketEntities.Order
             });
 
             this.CartItems = listOfCleanLineItems;
-
             return this.CartItems;
         }
 
@@ -62,7 +63,7 @@ namespace BlueTree.SuperMarketEntities.Order
         /// <exception cref="ArgumentException"></exception>
         public decimal CalculatePrice()
         {
-            IPriceCalculator priceCalculator;
+            PriceCalculator priceCalculator;
 
             decimal totalPrice = 0;
 

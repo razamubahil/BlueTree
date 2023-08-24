@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlueTree.SuperMarketEntities.Price
 {
-    public class SimplePriceCalculator : PriceCalculator
+    public class SimplePriceCalculator : IPriceCalculator
     {
         /// <summary>
         /// Calcualte the simple price of the items
@@ -15,7 +15,7 @@ namespace BlueTree.SuperMarketEntities.Price
         /// <param name="Qty">Number of items to purchase</param>
         /// <param name="Sku">Type of item to purchase</param>
         /// <returns></returns>
-        public override decimal CalculatePrice(int Qty, ISku Sku)
+        public virtual decimal CalculatePrice(int Qty, ISku Sku)
         {
             return Qty * Sku.NormalPrice;
         }

@@ -5,12 +5,6 @@ namespace BlueTree.Tests
 {
     public class Tests
     {
-        [SetUp]
-        public void Setup()
-        {
-
-        }
-
         [Test]
         [TestCase("AAA")]
         [TestCase("AAABBB")]
@@ -45,6 +39,21 @@ namespace BlueTree.Tests
             Assert.That(sku.Discount.DiscountedPrice, Is.EqualTo(DiscountPrice));
             Assert.True(sku.HasDiscount());
         }
+
+        [Test]
+        [TestCase("A", 50, -1, 130)]
+        [TestCase("B", 30, -3, 45)]
+        public void Test_CreateValidSku_WithIncorrectDiscount_ThenException(string SkuName, decimal NormalPrice, int DiscountQty, decimal DiscountPrice)
+        {
+            // Arrange Test
+            ISku sku = new Sku(SkuName, NormalPrice);
+            
+            // Act Test
+            var ex = Assert.Throws<ArgumentException>(() => sku.SetDiscount(DiscountQty, DiscountPrice));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid Parameter value. (Parameter 'Qty')"));
+        }
+
 
         [Test]
         [TestCase("A", 50)]
